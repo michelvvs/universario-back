@@ -1,6 +1,14 @@
 const express = require('express')
 const routes = express.Router()
 
+const cors = require('cors');
+
+routes.use(cors({
+    origin: '*',
+    methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+
+}));
+
 getTopMusic = require('../db/billboard')
 
 
@@ -9,7 +17,7 @@ routes.get('/', (req, res) => {
     return res.json('pangaré')
 })
 
-routes.get('/billboard', (req, res) => {
+routes.get('/billboard', cors(),  (req, res) => {
     const year = req.body.year;
     const month = req.body.month;
     const day = req.body.day;
